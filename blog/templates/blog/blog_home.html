@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'src/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'src/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'src/css/style.css' %}">
+
+    <link rel="icon" href="{% static 'portfolio/icon.png' %}">
+
+    <title>وبلاگ سعید</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-md">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'portfolio/icon.png' %}" width="40px" height="40px"> سعید باقری</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-contents">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-contents">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item align-self-start align-self-md-center mr-md-0 mr-4">
+                    <a class="nav-link" href="{% url 'home' %}"> خانه</a>
+                </li>
+                <li class="nav-item align-self-start align-self-md-center mr-md-0 mr-4">
+                    <a class="nav-link" href="{% static 'portfolio/resume.pdf' %}"> رزومه</a>
+                </li>
+                <li class="nav-item align-self-start align-self-md-center mr-md-0 mr-4">
+                    <a class="nav-link" href="{% url 'home' %}admin" target="_blank">مدیر</a>
+                </li>
+                <li class="nav-item align-self-start align-self-md-center mr-md-0 mr-4 active">
+                    <a class="nav-link" href="{% url 'blog_app:blog_home' %}"><span class="btn btn-primary d-inline">وبلاگ</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 mt-5" style="min-height: 536px">
+                {% for blog in blogs %}
+                    <div class="mb-5">
+                        <a href="{% url 'blog_app:detail' blog.id %}" class="text-primary text-right nounderline"><h2>{{ blog.title }}</h2></a>
+                        <p class="text-muted text-right">{{ blog.date|date:'M d Y'|upper }}</p>
+                        <P class="text-dark text-right">{{ blog.description|striptags|truncatechars:100 }}</P>
+                        <hr class="w-50">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-3 order-first order-md-last">
+                <div class="card my-5 sticky-top">
+                    <div class="card-header bg-dark text-white text-center">
+                        <i class="fa fa-envelope display-3 d-block"></i>
+                        <h3 class="d-inline"> تعداد پست‌ها</h3>
+                    </div>
+                    <div class="card-body py-5 text-center">
+                        <h1 class="display-1 text-dark">{{ blogs.count }}</h1>
+                    </div>
+                    <div class="card-footer bg-dark">
+                        <h1 class="py-2"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="footer" class="mt-3 bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="py-4 text-white">
+                    <p>Copyright &copy; 2017</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="{% static 'src/js/jquery.min.js' %}"></script>
+<script src="{% static 'src/js/tether.min.js' %}"></script>
+<script src="{% static 'src/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'src/js/navbar-fixed.js' %}"></script>
+
+</body>
+</html>
+
